@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres-fm-db
+    restart: always
+    environment:
+      POSTGRES_USER: ati
+      POSTGRES_PASSWORD: ati129
+      POSTGRES_DB: fmdetails_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@ati.com
+      PGADMIN_DEFAULT_PASSWORD: ati129
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
